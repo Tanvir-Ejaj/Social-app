@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* For Light Mode */
+:root {
+  --main_bg: #ffffff; /* White */
+  --page_color: #f7f7fb; /* Light Gray */
+  --input_color: #e5e7eb; /* Slightly darker Gray */
+  --line_color: #d1d5db; /* Even darker Gray */
+  --primary_bg: #3b82f6; /* Blue */
+  --secondary_bg: #fbbf24; /* Amber */
+  --accent_bg: #10b981; /* Green */
+  --text_color: #1f2937; /* Dark Gray */
+  --secondary_text_color: #4b5563; /* Medium Gray */
+  --muted_text_color: #9ca3af; /* Light Gray */
+  --error_color: #ef4444; /* Red */
+  --success_color: #10b981; /* Green */
+  --warning_color: #f59e0b; /* Yellow */
+  --info_color: #3b82f6; /* Blue */
+}
+
+/* For Dark Mode */
+/* :root {
+  --main_bg: #1f2937;
+  --page_color: #111827;
+  --input_color: #374151;
+  --line_color: #4b5563;
+  --primary_bg: #3b82f6;
+  --secondary_bg: #fbbf24;
+  --accent_bg: #10b981;
+  --text_color: #e5e7eb;
+  --secondary_text_color: #9ca3af;
+  --muted_text_color: #6b7280;
+  --error_color: #ef4444;
+  --success_color: #10b981;
+  --warning_color: #f59e0b;
+  --info_color: #3b82f6;
+} */
+
+/* Custom Fonts */
+@font-face {
+  font-family: "Gilroy Light";
+  src: url(/src/assets/fonts/Gilroy-Light.ttf);
+}
+
+@font-face {
+  font-family: "Gilroy Regular";
+  src: url(/src/assets/fonts/Gilroy-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Gilroy Medium";
+  src: url(/src/assets/fonts/Gilroy-Medium.ttf);
+}
+
+@font-face {
+  font-family: "Gilroy SemiBold";
+  src: url(/src/assets/fonts/Gilroy-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: "Gilroy Bold";
+  src: url(/src/assets/fonts/Gilroy-Bold.ttf);
+}
+
+@font-face {
+  font-family: "Gilroy Black";
+  src: url(/src/assets/fonts/Gilroy-Black.ttf);
+}
