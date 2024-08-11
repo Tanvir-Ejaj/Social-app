@@ -1,59 +1,117 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { signp } from "./../../validation/index";
+import { signUp } from "./../../validation/index";
+import DateOfBirth from "./DateOfBirth";
+import Gender from "./Gender";
+import { useAddUserMutation } from "../../features/api/authApi";
+import { toast } from "react-toastify";
 
 const initialState = {
-  fName: "",
-  lName: "",
+  fname: "",
+  lname: "",
   email: "",
   password: "",
-  bYear: "",
-  bMonth: "",
-  bDay: "",
+  bYear: new Date().getFullYear(),
+  bMonth: new Date().getMonth() + 1,
+  bDay: new Date().getDate(),
   gender: "",
 };
 
 const RegiForm = () => {
+  const [ageError, setAgeError] = useState("");
+  const [addUser, { isLoading }] = useAddUserMutation();
+  const navigate = useNavigate();
+
+  const registration = async (values) => {
+    try {
+      const signUpMutation = await addUser(values).unwrap();
+      console.log(signUpMutation);
+      return true; // indicates successful submission
+    } catch (error) {
+      toast.error(error.data.error.message);
+      console.error("Error during registration:", error);
+      return false; // indicates failed submission
+    }
+  };
+
   const formik = useFormik({
     initialValues: initialState,
-    validationSchema: signp,
-    onSubmit: (values) => {
-      console.log("Form Submitted", values);
+    validationSchema: signUp,
+    onSubmit: async (values, { resetForm }) => {
+      const currentDate = new Date();
+      const pickedDate = new Date(values.bYear, values.bMonth - 1, values.bDay);
+
+      const age = currentDate.getFullYear() - pickedDate.getFullYear();
+      const isUnderage = age < 18 || (age === 18 && currentDate < pickedDate);
+      const isTooOld = age > 100;
+
+      if (isUnderage) {
+        return setAgeError("Minimum 18 Years Old Required");
+      } else if (isTooOld) {
+        return setAgeError("You're too old to use");
+      }
+      setAgeError("");
+
+      const success = await registration(values);
+      if (success) {
+        toast.success("Registration successful!");
+        
+        resetForm();
+        setTimeout(() => {
+          navigate("/login");
+        }, 2500);
+        console.log("Form Submitted", values);
+      }
     },
   });
 
+  const tempYears = new Date().getFullYear();
+  const years = Array.from(new Array(105), (val, index) => tempYears - index);
+
+  const months = Array.from(new Array(12), (val, index) => 1 + index);
+
+  const days = () => {
+    return new Date(formik.values.bYear, formik.values.bMonth, 0).getDate();
+  };
+
+  const getDates = Array.from(new Array(days()), (val, index) => 1 + index);
+
   return (
-    <div className="w-full max-w-lg mx-auto bg-main_bg rounded-lg shadow-md px-8 py-10">
+    <div className="w-full max-w-lg mx-auto bg-main_bg_2 rounded-lg shadow-md p-4 lg:px-8 lg:py-10">
       <form onSubmit={formik.handleSubmit}>
         <input
-          className="w-full px-4 py-3 border border-line_color rounded-md mb-2 focus:outline-none focus:border-primary_bg"
+          className="w-full px-4 py-3 border border-line_color_1 rounded-md mb-2 focus:outline-none focus:border-primary_bg_2"
           placeholder="First Name"
           type="text"
-          value={formik.values.fName}
+          value={formik.values.fname}
           onChange={formik.handleChange}
-          name="fName"
+          name="fname"
           onBlur={formik.handleBlur}
         />
-        {formik.touched.fName && formik.errors.fName ? (
-          <div className="text-error_color mb-4">{formik.errors.fName}</div>
+        {formik.touched.fname && formik.errors.fname ? (
+          <div className="text-error_color_1 mb-[2px] xs:text-[11px] md:text-[16px] xl:text-[16px] lg:mb-4">
+            {formik.errors.fname}
+          </div>
         ) : null}
 
         <input
-          className="w-full px-4 py-3 border border-line_color rounded-md mb-2 focus:outline-none focus:border-primary_bg"
+          className="w-full px-4 py-3 border border-line_color_1 rounded-md mb-2 focus:outline-none focus:border-primary_bg_2"
           placeholder="Last Name"
           type="text"
-          value={formik.values.lName}
+          value={formik.values.lname}
           onChange={formik.handleChange}
-          name="lName"
+          name="lname"
           onBlur={formik.handleBlur}
         />
-        {formik.touched.lName && formik.errors.lName ? (
-          <div className="text-error_color mb-4">{formik.errors.lName}</div>
+        {formik.touched.lname && formik.errors.lname ? (
+          <div className="text-error_color_1 mb-[2px] xs:text-[11px] md:text-[16px] xl:text-[16px] lg:mb-4">
+            {formik.errors.lname}
+          </div>
         ) : null}
 
         <input
-          className="w-full px-4 py-3 border border-line_color rounded-md mb-2 focus:outline-none focus:border-primary_bg"
+          className="w-full px-4 py-3 border border-line_color_1 rounded-md mb-2 focus:outline-none focus:border-primary_bg_2"
           placeholder="example@email.com"
           type="email"
           value={formik.values.email}
@@ -62,11 +120,13 @@ const RegiForm = () => {
           onBlur={formik.handleBlur}
         />
         {formik.touched.email && formik.errors.email ? (
-          <div className="text-error_color mb-4">{formik.errors.email}</div>
+          <div className="text-error_color_1 mb-[2px] xs:text-[11px] md:text-[16px] xl:text-[16px] lg:mb-4">
+            {formik.errors.email}
+          </div>
         ) : null}
 
         <input
-          className="w-full px-4 py-3 border border-line_color rounded-md mb-2 focus:outline-none focus:border-primary_bg"
+          className="w-full px-4 py-3 border border-line_color_1 rounded-md mb-2 focus:outline-none focus:border-primary_bg_2"
           placeholder="Password"
           type="password"
           value={formik.values.password}
@@ -75,97 +135,31 @@ const RegiForm = () => {
           onBlur={formik.handleBlur}
         />
         {formik.touched.password && formik.errors.password ? (
-          <div className="text-error_color mb-4">{formik.errors.password}</div>
-        ) : null}
-
-        <div className="flex gap-x-4 mb-2">
-          <select
-            className="border border-line_color w-1/3 px-3 py-2 rounded-md focus:outline-none focus:border-primary_bg"
-            value={formik.values.bYear}
-            onChange={formik.handleChange}
-            name="bYear"
-            onBlur={formik.handleBlur}
-          >
-            <option value="">Birth Year</option>
-            {/* Add more year options */}
-            <option>1990</option>
-            <option>1991</option>
-            <option>1992</option>
-          </select>
-          <select
-            className="border border-line_color w-1/3 px-3 py-2 rounded-md focus:outline-none focus:border-primary_bg"
-            value={formik.values.bMonth}
-            onChange={formik.handleChange}
-            name="bMonth"
-            onBlur={formik.handleBlur}
-          >
-            <option value="">Birth Month</option>
-            {/* Add more month options */}
-            <option>January</option>
-            <option>February</option>
-            <option>March</option>
-          </select>
-          <select
-            className="border border-line_color w-1/3 px-3 py-2 rounded-md focus:outline-none focus:border-primary_bg"
-            value={formik.values.bDay}
-            onChange={formik.handleChange}
-            name="bDay"
-            onBlur={formik.handleBlur}
-          >
-            <option value="">Birth Day</option>
-            {/* Add more day options */}
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-          </select>
-        </div>
-        {(formik.touched.bYear && formik.errors.bYear) ||
-        (formik.touched.bMonth && formik.errors.bMonth) ||
-        (formik.touched.bDay && formik.errors.bDay) ? (
-          <div className="text-error_color mb-4">
-            Please complete your date of birth
+          <div className="text-error_color_1 mb-[2px] xs:text-[11px] md:text-[16px] xl:text-[16px] lg:mb-4">
+            {formik.errors.password}
           </div>
         ) : null}
 
-        <div className="mb-6">
-          <input
-            type="radio"
-            name="gender"
-            id="Male"
-            value="male"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <label htmlFor="Male" className="ml-2 text-text_color">
-            Male
-          </label>
-          <input
-            type="radio"
-            name="gender"
-            id="Female"
-            value="female"
-            className="ml-6"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <label htmlFor="Female" className="ml-2 text-text_color">
-            Female
-          </label>
-        </div>
-        {formik.touched.gender && formik.errors.gender ? (
-          <div className="text-error_color mb-4">{formik.errors.gender}</div>
-        ) : null}
+        <DateOfBirth
+          formik={formik}
+          ageError={ageError}
+          years={years}
+          months={months}
+          getDates={getDates}
+        />
 
-        <div className="flex justify-between items-center">
+        <Gender formik={formik} />
+
+        <div className="lg:flex sm:flex text-center lg:justify-between sm:justify-between items-center sm:pt-3">
           <button
             type="submit"
-            className="px-6 py-3 bg-primary_bg text-main_bg rounded-full font-gilroyMedium transition duration-300 hover:bg-accent_bg"
+            className="px-4 py-2 lg:px-6 lg:py-3 bg-primary_bg_2 text-main_bg_1 rounded-[20px] lg:rounded-full font-gilroyMedium transition duration-300 hover:bg-accent_bg_2"
           >
             Submit
           </button>
-          <p className="text-secondary_text_color">
+          <p className="text-secondary_text_color_1">
             Already have an account?{" "}
-            <Link to="/" className="text-primary_bg underline">
+            <Link to="/login" className="text-accent_bg_2 underline">
               Login
             </Link>
           </p>

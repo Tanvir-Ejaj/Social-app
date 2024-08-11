@@ -2,8 +2,8 @@ export const RegistrationIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="219"
-      height="219"
+      width={219}
+      height={219}
       viewBox="0 0 219 219"
       fill="none"
     >

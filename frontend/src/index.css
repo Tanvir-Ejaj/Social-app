@@ -4,38 +4,120 @@
 
 /* For Light Mode */
 :root {
-  --main_bg: #ffffff; /* White */
-  --page_color: #f7f7fb; /* Light Gray */
-  --input_color: #e5e7eb; /* Slightly darker Gray */
-  --line_color: #d1d5db; /* Even darker Gray */
-  --primary_bg: #3b82f6; /* Blue */
-  --secondary_bg: #fbbf24; /* Amber */
-  --accent_bg: #10b981; /* Green */
-  --text_color: #1f2937; /* Dark Gray */
-  --secondary_text_color: #4b5563; /* Medium Gray */
-  --muted_text_color: #9ca3af; /* Light Gray */
-  --error_color: #ef4444; /* Red */
-  --success_color: #10b981; /* Green */
-  --warning_color: #f59e0b; /* Yellow */
-  --info_color: #3b82f6; /* Blue */
+  /* Background Colors */
+  --main_bg_1: #f5f7fa; /* Light Grayish Blue */
+  --main_bg_2: #eff1f5; /* Soft Blue-Gray */
+  --main_bg_3: #f8f9fc; /* Off-White with a hint of Blue */
+  --main_bg_4: #e6e8f0; /* Light Silver Blue */
+  --main_bg_5: #e1e4eb; /* Light Blue-Gray */
+
+  --page_color_1: #f4f6fa; /* Light Blue-Gray */
+  --page_color_2: #e8ebf3; /* Soft Grayish Blue */
+  --page_color_3: #f1f3f9; /* Very Light Blue-Gray */
+  --page_color_4: #e4e7ef; /* Soft Silver Blue */
+  --page_color_5: #dfe2ea; /* Soft Pale Gray */
+
+  /* Input Colors */
+  --input_color_1: #d9dce3; /* Very Light Blue-Gray */
+  --input_color_2: #d1d4dc; /* Soft Blue-Gray */
+  --input_color_3: #e3e5ed; /* Very Light Silver Blue */
+  --input_color_4: #d7dae2; /* Soft Silver Blue */
+  --input_color_5: #c5c8d3; /* Muted Blue-Gray */
+
+  /* Line/Border Colors */
+  --line_color_1: #c0c4d4; /* Soft Slate Blue */
+  --line_color_2: #b3b7c7; /* Muted Blue-Gray */
+  --line_color_3: #cbcfe0; /* Light Slate Blue */
+  --line_color_4: #b7bbca; /* Muted Grayish Blue */
+  --line_color_5: #a4a8b8; /* Soft Grayish Slate */
+
+  /* Primary Background Colors */
+  --primary_bg_1: #a2b9f3; /* Light Sky Blue */
+  --primary_bg_2: #bcc7f3; /* Soft Periwinkle */
+  --primary_bg_3: #91b8f3; /* Soft Cerulean */
+  --primary_bg_4: #8ca7f3; /* Light Blue */
+  --primary_bg_5: #6d75aa; /* Soft Slate Blue */
+
+  /* Secondary Background Colors */
+  --secondary_bg_1: #c3a3f3; /* Soft Lavender */
+  --secondary_bg_2: #d6a9f3; /* Light Lilac */
+  --secondary_bg_3: #f3a3d6; /* Light Pinkish Lavender */
+  --secondary_bg_4: #f3c3e1; /* Soft Blush Pink */
+  --secondary_bg_5: #a3c8f3; /* Soft Sky Blue */
+
+  /* Accent Background Colors */
+  --accent_bg_1: #7b92aa; /* Muted Slate Blue */
+  --accent_bg_2: #768ba5; /* Soft Blue-Gray */
+  --accent_bg_3: #6d7a99; /* Muted Blue-Gray */
+  --accent_bg_4: #8c7aa9; /* Soft Slate */
+  --accent_bg_5: #a3baf3; /* Soft Sky Blue */
+
+  /* Text Colors */
+  --text_color_1: #35395e; /* Muted Slate */
+  --text_color_2: #424b73; /* Soft Slate */
+  --text_color_3: #616799; /* Light Slate */
+  --text_color_4: #505787; /* Muted Blue-Gray */
+  --text_color_5: #2e2f53; /* Deep Slate */
+
+  /* Secondary Text Colors */
+  --secondary_text_color_1: #525a80; /* Muted Slate */
+  --secondary_text_color_2: #626b94; /* Soft Slate */
+  --secondary_text_color_3: #7c81aa; /* Muted Blue */
+  --secondary_text_color_4: #6f73a5; /* Light Slate */
+  --secondary_text_color_5: #54566d; /* Soft Blue-Gray */
+
+  /* Muted Text Colors */
+  --muted_text_color_1: #8a8ea1; /* Soft Slate */
+  --muted_text_color_2: #a2a7b7; /* Muted Blue-Gray */
+  --muted_text_color_3: #b8bcd4; /* Very Light Blue */
+  --muted_text_color_4: #ced1e5; /* Very Light Slate */
+  --muted_text_color_5: #c3c6e0; /* Light Slate Blue */
+
+  /* Error Colors */
+  --error_color_1: #e57373; /* Soft Red */
+  --error_color_2: #ef9a9a; /* Light Coral Red */
+  --error_color_3: #f28b82; /* Soft Pinkish Red */
+  --error_color_4: #ef5350; /* Muted Rose Red */
+  --error_color_5: #f06292; /* Soft Rose Pink */
+
+  /* Success Colors */
+  --success_color_1: #66bb6a; /* Soft Green */
+  --success_color_2: #81c784; /* Light Forest Green */
+  --success_color_3: #a5d6a7; /* Pale Green */
+  --success_color_4: #4caf50; /* Muted Emerald Green */
+  --success_color_5: #81c995; /* Soft Mint Green */
+
+  /* Warning Colors */
+  --warning_color_1: #ffb74d; /* Soft Amber */
+  --warning_color_2: #ffcc80; /* Light Peachy Yellow */
+  --warning_color_3: #ffd54f; /* Soft Golden Yellow */
+  --warning_color_4: #ffa726; /* Warm Coral Yellow */
+  --warning_color_5: #ffc947; /* Soft Golden Peach */
+
+  /* Info Colors */
+  --info_color_1: #4fc3f7; /* Soft Sky Blue */
+  --info_color_2: #81d4fa; /* Light Azure */
+  --info_color_3: #64b5f6; /* Light Cerulean */
+  --info_color_4: #29b6f6; /* Soft Sea Blue */
+  --info_color_5: #26c6da; /* Soft Aqua */
 }
 
 /* For Dark Mode */
 /* :root {
-  --main_bg: #1f2937;
-  --page_color: #111827;
-  --input_color: #374151;
-  --line_color: #4b5563;
-  --primary_bg: #3b82f6;
-  --secondary_bg: #fbbf24;
-  --accent_bg: #10b981;
-  --text_color: #e5e7eb;
-  --secondary_text_color: #9ca3af;
-  --muted_text_color: #6b7280;
-  --error_color: #ef4444;
-  --success_color: #10b981;
-  --warning_color: #f59e0b;
-  --info_color: #3b82f6;
+  --main_bg: #2a2e37;
+  --page_color: #1e2028;
+  --input_color: #3e4451;
+  --line_color: #5c6370;
+  --primary_bg: #5a9df4;
+  --secondary_bg: #f9ca66;
+  --accent_bg: #58cfa6;
+  --text_color: #d3d7df;
+  --secondary_text_color: #a1a7b3;
+  --muted_text_color: #848b97;
+  --error_color: #e57373;
+  --success_color: #66bb6a;
+  --warning_color: #ffb74d;
+  --info_color: #64b5f6;
 } */
 
 /* Custom Fonts */
